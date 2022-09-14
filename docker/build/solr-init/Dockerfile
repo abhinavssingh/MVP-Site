@@ -3,8 +3,8 @@
 ARG BASE_IMAGE
 ARG SXA_IMAGE
 
-FROM ${BASE_IMAGE}
 FROM ${SXA_IMAGE} as sxa
+FROM ${BASE_IMAGE}
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 

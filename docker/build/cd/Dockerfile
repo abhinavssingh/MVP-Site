@@ -9,8 +9,8 @@ ARG HEADLESS_SERVICES_RESOURCES_IMAGE
 FROM ${SOLUTION_IMAGE} as solution
 FROM ${TOOLS_RESOURCES_IMAGE} as tooling
 FROM ${HEADLESS_SERVICES_RESOURCES_IMAGE} AS headless_services_resources
-FROM ${BASE_IMAGE}
 FROM ${SXA_IMAGE} as sxa
+FROM ${BASE_IMAGE}
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 

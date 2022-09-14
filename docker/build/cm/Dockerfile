@@ -13,8 +13,8 @@ FROM ${TOOLS_RESOURCES_IMAGE} as tooling
 FROM ${DEVEX_RESOURCES_IMAGE} AS devex_resources
 FROM ${HEADLESS_SERVICES_RESOURCES_IMAGE} AS headless_services_resources
 FROM ${SPE_RESOURCES_IMAGE} AS spe_resources
-FROM ${BASE_IMAGE}
 FROM ${SXA_IMAGE} as sxa
+FROM ${BASE_IMAGE}
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
