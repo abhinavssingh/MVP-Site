@@ -129,7 +129,8 @@ services:
     build:
       context: ./docker/build/solr-init
       args:
-        BASE_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xm1-solr-init:${SITECORE_VERSION}                
+        BASE_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xm1-solr-init:${SITECORE_VERSION}
+        SXA_IMAGE: ${SITECORE_MODULE_REGISTRY}sitecore-sxa-xm1-assets:${SXA_VERSION}             
   
   id:
     image: ${MVP_DOCKER_REGISTRY}mvp-id6:${SITECORE_VERSION}
@@ -153,9 +154,10 @@ services:
       context: ./docker/build/cd
       args:
         BASE_IMAGE: ${SITECORE_DOCKER_REGISTRY}${CD_IMAGE}:${SITECORE_VERSION}
+        SXA_IMAGE: ${SITECORE_MODULE_REGISTRY}sitecore-sxa-xm1-assets:${SXA_VERSION}
         SOLUTION_IMAGE: ${MVP_DOCKER_REGISTRY}mvp-solution:${SITECORE_VERSION}
         TOOLS_RESOURCES_IMAGE: ${TOOLS_RESOURCES_IMAGE}
-        HEADLESS_SERVICES_RESOURCES_IMAGE: ${HEADLESS_SERVICES_RESOURCES_IMAGE}
+        HEADLESS_SERVICES_RESOURCES_IMAGE: ${HEADLESS_SERVICES_RESOURCES_IMAGE}       
     depends_on:
       solutionBuildOutput:
         condition: service_completed_successfully 
@@ -174,7 +176,7 @@ services:
       Sitecore__ExternalCdUrl: "${CD_HOST}"
       MVP_RENDERING_HOST_PUBLIC_URI: https://${MVP_RENDERING_HOST}      
     mem_limit: ${MEM_LIMIT_CD:-2GB}      
-    entrypoint: powershell.exe -Command "& C:\tools\entrypoints\iis\Development.ps1"
+    entrypoint: powershell.exe -Command "& C:\\tools\\entrypoints\\iis\\Development.ps1"
     labels:
       - "traefik.http.middlewares.force-STS-Header.headers.forceSTSHeader=true"
       - "traefik.http.middlewares.force-STS-Header.headers.stsSeconds=31536000"
@@ -190,11 +192,12 @@ services:
       context: ./docker/build/cm
       args:
         BASE_IMAGE: ${SITECORE_DOCKER_REGISTRY}${CM_IMAGE}:${SITECORE_VERSION}
+        SXA_IMAGE: ${SITECORE_MODULE_REGISTRY}sitecore-sxa-xm1-assets:${SXA_VERSION}
         SOLUTION_IMAGE: ${MVP_DOCKER_REGISTRY}mvp-solution:${SITECORE_VERSION}
         TOOLS_RESOURCES_IMAGE: ${TOOLS_RESOURCES_IMAGE}
         DEVEX_RESOURCES_IMAGE: ${DEVEX_RESOURCES_IMAGE}
         HEADLESS_SERVICES_RESOURCES_IMAGE: ${HEADLESS_SERVICES_RESOURCES_IMAGE}
-        SPE_RESOURCES_IMAGE: ${SPE_RESOURCES_IMAGE}
+        SPE_RESOURCES_IMAGE: ${SPE_RESOURCES_IMAGE}       
     depends_on:
       solutionBuildOutput:
         condition: service_completed_successfully  
@@ -216,7 +219,7 @@ services:
       SSC__AnonymousUser: "${SSC_AnonymousUser}"
       MVP_RENDERING_HOST_PUBLIC_URI: https://${MVP_RENDERING_HOST}
     mem_limit: ${MEM_LIMIT_CD:-4GB}        
-    entrypoint: powershell.exe -Command "& C:\tools\entrypoints\iis\Development.ps1"
+    entrypoint: powershell.exe -Command "& C:\\tools\\entrypoints\\iis\\Development.ps1"
  
 networks:
   default:
